@@ -69,7 +69,6 @@
 (setq backup-directory-alist `(("." . "~/.saves")))
 
 (require 'whitespace)
-(require 'my-whitespace)
 
 ;; (setq-default indent-tabs-mode nil)
 
@@ -97,3 +96,5 @@
 (add-hook 'js-mode-hook           'set-good-edit)
 
 (server-mode)
+
+(require 'my-whitespace)
