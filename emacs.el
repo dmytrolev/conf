@@ -1,4 +1,4 @@
-(add-to-list 'load-path "/home/dima/.emacs.d/")
+; (add-to-list 'load-path "/home/dima/.emacs.d/")
 
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
@@ -13,17 +13,22 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- '(match ((((class color) (min-colors 8) (background dark)) (:background "blue" :foreground "red")))))
+ '(match ((((class color) (min-colors 8) (background dark)) (:background "blue" :foreground "red"))))
+ '(whitespace-indentation ((t nil)))
+ '(whitespace-space ((((class color) (background dark)) nil) (((class color) (background light)) nil) (t (:inverse-video t)))))
 
-(require 'actionscript-mode)
-(require 'lua2-mode)
-(require 'linum)
+;; (require 'actionscript-mode)
+;; (require 'lua2-mode)
+;; (require 'linum)
 
-(add-to-list 'auto-mode-alist '("\\.as$" . actionscript-mode))
-(add-to-list 'auto-mode-alist '("^Rakefile(\\..*)?$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("\\.ru$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+;; (add-to-list 'auto-mode-alist '("\\.as$" . actionscript-mode))
+;; (add-to-list 'auto-mode-alist '("^Rakefile(\\..*)?$" . ruby-mode))
+;; (add-to-list 'auto-mode-alist '("\\.ru$" . ruby-mode))
+;; (add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
+;; (add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
+(add-to-list 'auto-mode-alist '("\\.hbs$" . html-mode))
+(add-to-list 'auto-mode-alist '("\\.less$" . css-mode))
 
 (set-foreground-color "#dbdbdb")
 (set-background-color "#111111")
@@ -44,25 +49,19 @@
 ;; MS Windows clipboard is UTF-16LE
 ;; (set-clipboard-coding-system 'utf-16le-dos)
 
-(defun my_msg()
-  (interactive)
-  (setq output (get-buffer-create "make"))
-  (setq currb (buffer-name))
-  (set-buffer output)
-  (erase-buffer)
-  (set-buffer currb)
-  (start-process "make" output "make" "start")
-  (display-buffer output)
-)
+;; (defun my_msg()
+;;   (interactive)
+;;   (setq output (get-buffer-create "make"))
+;;   (setq currb (buffer-name))
+;;   (set-buffer output)
+;;   (erase-buffer)
+;;   (set-buffer currb)
+;;   (start-process "make" output "make" "start")
+;;   (display-buffer output)
+;; )
 
-(global-set-key (kbd "M-<f5>") 'my_msg)
+;; (global-set-key (kbd "M-<f5>") 'my_msg)
 
-(add-to-list 'load-path "~/.emacs.d/")
-(require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d//ac-dict")
-(ac-config-default)
-
-(add-to-list 'ac-modes 'actionscript-mode)
 (global-set-key "\C-h" 'delete-backward-char)
 (global-set-key "\M-h" 'backward-kill-word)
 
@@ -81,9 +80,9 @@
   (setq c-basic-offset 2)
   (flyspell-prog-mode)
   (hs-minor-mode)
-	(whitespace-mode)
-  (ac-flyspell-workaround)
-	(setq indent-tabs-mode nil) ; some needs to be overriden
+  (whitespace-mode)
+  (company-mode)
+  (setq indent-tabs-mode nil) ; some needs to be overriden
 )
 ;; (add-hook 'java-mode-hook         'set-good-edit)
 
@@ -93,8 +92,10 @@
 (add-hook 'lisp-mode-hook         'set-good-edit)
 (add-hook 'perl-mode-hook         'set-good-edit)
 (add-hook 'sh-mode-hook           'set-good-edit)
-(add-hook 'js-mode-hook           'set-good-edit)
+(add-hook 'js2-mode-hook          'set-good-edit)
+(add-hook 'html-mode-hook          'set-good-edit)
+(add-hook 'css-mode-hook          'set-good-edit)
 
 (server-mode)
 
-(require 'my-whitespace)
+;; (require 'my-whitespace)
