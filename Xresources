@@ -66,7 +66,7 @@ URxvt*foreground:                     Cyan
 ! URxvt*pointerColor2:                  color
 ! URxvt*borderColor:                    color
 ! URxvt*iconFile:                       file
-URxvt*font:                           xft:SourceCodePro:pixelsize=12:antialising=true:hinting=true
+URxvt*font:                           xft:SourceCodePro-12:antialising=true:hinting=true
 ! URxvt*boldFont:                       fontname
 ! URxvt*italicFont:                     fontname
 ! URxvt*boldItalicFont:                 fontname

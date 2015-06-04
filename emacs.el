@@ -1,5 +1,11 @@
 ; (add-to-list 'load-path "/home/dima/.emacs.d/")
 
+;; Mozilla RUST packages
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(package-initialize)
+
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
@@ -38,12 +44,12 @@
 
 ;;;;;;;;;;;;;;;;;;;;
 ;; set up unicode
-(prefer-coding-system       'utf-8)
-(set-default-coding-systems 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
+(prefer-coding-system       'utf-8-unix)
+(set-default-coding-systems 'utf-8-unix)
+(set-terminal-coding-system 'utf-8-unix)
+(set-keyboard-coding-system 'utf-8-unix)
 ;; This from a japanese individual.  I hope it works.
-(setq default-buffer-file-coding-system 'utf-8)
+(setq default-buffer-file-coding-system 'utf-8-unix)
 ;; From Emacs wiki
 (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 ;; MS Windows clipboard is UTF-16LE
@@ -81,7 +87,7 @@
   (flyspell-prog-mode)
   (hs-minor-mode)
   (whitespace-mode)
-  (company-mode)
+  ;; (company-mode)
   (setq indent-tabs-mode nil) ; some needs to be overriden
 )
 ;; (add-hook 'java-mode-hook         'set-good-edit)
