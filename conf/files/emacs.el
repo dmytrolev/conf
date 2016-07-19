@@ -98,7 +98,7 @@
   (flyspell-prog-mode)
   (hs-minor-mode)
   (whitespace-mode)
-;;  (company-mode) ; don't forget to install this before enble
+  (if (fboundp 'company-mode) (company-mode))
   (setq indent-tabs-mode nil) ; some needs to be overriden
 )
 ;; (add-hook 'java-mode-hook         'set-good-edit)

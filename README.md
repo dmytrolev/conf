@@ -1,3 +1,6 @@
+Configuration Formula for Salt Stack
+------------------------------------
+
 VirtualBox
 ----------
 
