@@ -3,6 +3,6 @@ emacs:
     - pkgs:
       - emacs-nox
   file.managed:
-    - name: /home/{{ salt['grains.get']('conf:user', salt['pillar.get']('conf:user')) }}/.emacs.el
+    - name: {{ salt['grains.get']('conf:user-home', salt['pillar.get']('conf:user-home')) }}/.emacs.el
     - source: salt://conf/files/emacs.el
     - mode: '0755'
