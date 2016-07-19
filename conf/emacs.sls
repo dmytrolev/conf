@@ -1,5 +1,5 @@
 emacs:
-  pkg-installed:
+  pkg.installed:
     - pkgs:
       - emacs-nox
   file.managed:
