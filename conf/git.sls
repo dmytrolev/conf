@@ -3,6 +3,6 @@ git:
     - pkgs:
       - git
   file.managed:
-    - name: {{ salt['grains.get']('conf:user-home', salt['pillar.get']('conf:user-home')) }}/.gitconfig
+    - name: {{ salt['grains.get']('conf:userhome', salt['pillar.get']('conf:userhome')) }}/.gitconfig
     - source: salt://conf/files/gitconfig
     - mode: '0755'
