@@ -128,3 +128,4 @@ URxvt*font:                           xft:SourceCodePro-12:antialising=true:hint
 ! URxvt*tabbar-bg:                      colour
 ! URxvt*tabbar-fg:                      colour
 ! URxvt*url-launcher:                   string
+! Xft.dpi:                              220 ! set dpi of screen for firefox, emacs and other programs
