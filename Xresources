@@ -67,6 +67,7 @@ URxvt*foreground:                     Cyan
 ! URxvt*borderColor:                    color
 ! URxvt*iconFile:                       file
 URxvt*font:                           xft:SourceCodePro-12:antialising=true:hinting=true
+firefox*font:                         xft:SourceCodePro-12:antialising=true:hinting=true
 ! URxvt*boldFont:                       fontname
 ! URxvt*italicFont:                     fontname
 ! URxvt*boldItalicFont:                 fontname
