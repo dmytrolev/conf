@@ -4,10 +4,9 @@
 ;; (add-to-list 'default-frame-alist '(font . "Source Code Pro-12" ))
 ;; (set-face-attribute 'default t :font "Source Code Pro-12" )
 
-;; Mozilla RUST packages
 (require 'package)
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa.milkbox.net/packages/") t)
+             '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 
 (custom-set-variables
@@ -16,8 +15,9 @@
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
  '(js-indent-level 2)
+ '(typescript-indent-level 2)
  '(view-highlight-face (quote highlight)))
- 
+
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
@@ -52,6 +52,7 @@
 (set-cursor-color "#ff0000")
 
 (setq-default tab-width 2)
+(setq-default create-lockfiles nil)
 
 ;;;;;;;;;;;;;;;;;;;;
 ;; set up unicode
@@ -101,8 +102,12 @@
   (if (fboundp 'company-mode) (company-mode))
   (setq indent-tabs-mode nil) ; some needs to be overriden
 )
-;; (add-hook 'java-mode-hook         'set-good-edit)
 
+(defun set-good-ws-edit ()
+  (setq whitespace-line-column 120)
+  (set-good-edit))
+
+(add-hook 'java-mode-hook         'set-good-ws-edit)
 (add-hook 'c-mode-common-hook     'set-good-edit)
 (add-hook 'emacs-lisp-mode-hook   'set-good-edit)
 (add-hook 'ruby-mode-hook         'set-good-edit)
@@ -113,5 +118,84 @@
 (add-hook 'html-mode-hook         'set-good-edit)
 (add-hook 'css-mode-hook          'set-good-edit)
 (add-hook 'sass-mode-hook         'set-good-edit)
+(add-hook 'sql-mode-hook          'set-good-edit)
+(add-hook 'typescript-mode-hook   'set-good-ws-edit)
 
-(server-mode)
+(defun ts-base-file-name (file_name)
+  "Get base name of the file."
+  (setq dir (file-name-directory file_name))
+  (setq file (file-name-nondirectory file_name))
+  (concat
+   dir
+   (replace-regexp-in-string "\\.\\(spec\\.ts\\|ts\\|html\\|scss\\)" "" file)))
+
+(defun java-test-file (file_name)
+  "Get base name of the file."
+  (setq dir (file-name-directory file_name))
+  (setq file (file-name-nondirectory file_name))
+  (concat
+   (replace-regexp-in-string "/main/" "/test/" dir)
+   (replace-regexp-in-string "\\.java" "Test.java" file)))
+
+(defun java-impl-file (file_name)
+  "Get base name of the file."
+  (setq dir (file-name-directory file_name))
+  (setq file (file-name-nondirectory file_name))
+  (concat
+   (replace-regexp-in-string "/test/" "/main/" dir)
+   (replace-regexp-in-string "Test\\.java" ".java" file)))
+
+(defun ts-jump-to-impl ()
+  "Jump to implementation of the component"
+  (interactive)
+  (setq current_file_name (buffer-file-name))
+  (cond
+   ((string-match ".java$" current_file_name)
+    (setq file_name (java-impl-file current_file_name)))
+   (t (setq file_name (concat (ts-base-file-name current_file_name) ".ts"))))
+  (find-file file_name))
+
+(defun ts-jump-to-scss ()
+  "Jump to implementation of the component"
+  (interactive)
+  (setq current_file_name (buffer-file-name))
+  (setq file_name (concat (ts-base-file-name current_file_name) ".scss"))
+  (find-file file_name))
+
+(defun ts-jump-to-html ()
+  "Jump to implementation of the component"
+  (interactive)
+  (setq current_file_name (buffer-file-name))
+  (setq file_name (concat (ts-base-file-name current_file_name) ".html"))
+  (find-file file_name))
+
+(defun ts-jump-to-test ()
+  "Jump to implementation of the component"
+  (interactive)
+  (setq current_file_name (buffer-file-name))
+  (cond
+   ((string-match ".java$" current_file_name)
+    (setq file_name (java-test-file current_file_name)))
+   (t (setq file_name (concat (ts-base-file-name current_file_name) ".spec.ts"))))
+  (find-file file_name))
+
+(global-set-key (kbd "C-x j i") #'ts-jump-to-impl)
+(global-set-key (kbd "C-x j s") #'ts-jump-to-scss)
+(global-set-key (kbd "C-x j h") #'ts-jump-to-html)
+(global-set-key (kbd "C-x j t") #'ts-jump-to-test)
+
+(defun stub-file ()
+  "Stubbs basic file structure"
+  (interactive)
+  (setq current_file_name (buffer-file-name))
+  (cond
+   ((string-match "Test.java$" current_file_name)
+    (insert-file-contents "~/.emacs.d/JUnitTest.java"))
+   ((string-match ".component.ts$" current_file_name)
+    (insert-file-contents "~/.emacs.d/proto.component.ts"))
+   ((string-match ".service.ts$" current_file_name)
+    (insert-file-contents "~/.emacs.d/proto.service.ts"))))
+
+(global-set-key (kbd "C-x p") #'stub-file)
+
+;; (server-mode)
